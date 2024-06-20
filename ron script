@@ -1,0 +1,136 @@
+local Decimals = 4
+local Clock = os.clock()
+local ValueText = "Value Is Now :"
+
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/drillygzzly/Roblox-UI-Libs/main/1%20Tokyo%20Lib%20(FIXED)/Tokyo%20Lib%20Source.lua"))({
+    cheatname = "Rise of Nations GUI", -- watermark text
+    gamename = "ron", -- watermark text
+})
+
+library:init()
+
+local Window1  = library.NewWindow({
+    title = "Rise of Nations | The Best Script out there!", -- Mainwindow Text
+    size = UDim2.new(0, 510, 0.6, 6)
+})
+
+local Tab1 = Window1:AddTab("  Sell Section  ")
+local Tab2 = Window1:AddTab("  Send Alliances ")
+local SettingsTab = library:CreateSettingsTab(Window1)
+
+local Section1 = Tab1:AddSection("Sell Consumer", 1)
+local Section2 = Tab1:AddSection("Unit ESP", 5)
+local Section3 = Tab2:AddSection("Send Alliances", 1)
+
+local function manageTags(value)
+    tog = value
+    local runServ = game:GetService("RunService")
+    if tog == true then
+        runServ:BindToRenderStep(
+            "test",
+            Enum.RenderPriority.Camera.Value,
+            function()
+                for i, v in pairs(game:GetService("Workspace").Units:GetDescendants()) do
+                    if v.Name == "Tag" then
+                        v.Enabled = true
+                    end
+                end
+            end
+        )
+    end
+
+    if tog == false then
+        runServ:UnbindFromRenderStep("test")
+    end
+end
+
+Section1:AddToggle({
+    text = "Sell",
+    state = false,
+    risky = true,
+    tooltip = "tooltip1",
+    flag = "Toggle_1",
+    risky = false,
+    callback = function(v)
+        print(ValueText, v)
+    end
+}):AddBind({
+    enabled = true,
+    text = "Keybind1",
+    tooltip = "tooltip1",
+    mode = "toggle",
+    bind = "None",
+    flag = "ToggleKey_1",
+    state = false,
+    nomouse = false,
+    risky = false,
+    noindicator = false,
+    callback = function(v)
+        print(ValueText, v)
+    end,
+    keycallback = function(v)
+        print(ValueText, v)
+    end
+})
+
+Section2:AddToggle({
+    text = "Unit ESP",
+    state = true,
+    risky = true,
+    tooltip = "tooltip1",
+    flag = "Toggle_2",
+    risky = false,
+    callback = function(v)
+        print(ValueText, v)
+        manageTags(v)  -- Call manageTags with the toggle value
+    end
+}):AddBind({
+    enabled = true,
+    text = "Keybind1",
+    tooltip = "tooltip1",
+    mode = "toggle",
+    bind = "None",
+    flag = "ToggleKey_1",
+    state = false,
+    nomouse = false,
+    risky = false,
+    noindicator = false,
+    callback = function(v)
+        print(ValueText, v)
+    end,
+    keycallback = function(v)
+        print(ValueText, v)
+    end
+})
+
+Section3:AddToggle({
+    text = "Send Alliances",
+    state = false, 
+    risky = true,
+    tooltip = "tooltip1",
+    flag = "Toggle_3",
+    risky = false,
+    callback = function(v)
+        print(ValueText, v)
+    end
+}):AddBind({
+    enabled = true,
+    text = "Keybind1",
+    tooltip = "tooltip1",
+    mode = "toggle",
+    bind = "None",
+    flag = "ToggleKey_1",
+    state = false,
+    nomouse = false,
+    risky = false,
+    noindicator = false,
+    callback = function(v)
+        print(ValueText, v)
+    end,
+    keycallback = function(v)
+        print(ValueText, v)
+    end
+})
+
+local Time = (string.format("%."..tostring(Decimals).."f", os.clock() - Clock))
+library:SendNotification(("Loaded In "..tostring(Time)), 6)
